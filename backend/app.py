@@ -1,4 +1,4 @@
-from flask import Flask, send_from_directory
+from flask import Flask, send_from_directory, jsonify
 from databases.db import db
 from databases.friends_db import Friend
 from databases.users_db import User
@@ -11,7 +11,6 @@ from extensions import bcrypt
 # Paths
 frontend_folder = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "frontend"))
 build_folder = os.path.join(frontend_folder, "build")
-
 # Initialize Flask with static_folder and static_url_path
 app = Flask(
     __name__,
@@ -45,7 +44,11 @@ def index(filename):
 # Handle 404 errors (for React Router)
 @app.errorhandler(404)
 def not_found(e):
-    return send_from_directory(build_folder, "index.html"), 200
+    index_path = os.path.join(build_folder, "index.html")
+    if os.path.exists(index_path):
+        return send_from_directory(build_folder, "index.html")
+    return jsonify({"error": "Page not found"}), 404
+
 
 # Register blueprint
 app.register_blueprint(friend_page, url_prefix="/")

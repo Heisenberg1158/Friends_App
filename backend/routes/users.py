@@ -118,6 +118,9 @@ def update(current_user):
     if not bcrypt.check_password_hash(current_user.password, old_password):
         return jsonify({"error": "Incorrect password"}), 400
 
+    if new_username == current_user.username and old_password == new_password:
+        return jsonify({"error": "No changes made to account"}), 400
+
     current_user.username = new_username
     if new_password and new_password != old_password:
         current_user.password = bcrypt.generate_password_hash(new_password).decode('utf-8')

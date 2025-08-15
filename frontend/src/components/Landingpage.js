@@ -1,68 +1,63 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import {
-  Box,
   Button,
-  Center,
+  Flex,
+  Heading,
   Stack,
   Text,
-  Heading,
   useColorModeValue,
 } from "@chakra-ui/react";
 
 export default function Landingpage() {
-  const cardBg = useColorModeValue("white", "gray.800");
-  const cardShadow = useColorModeValue("lg", "dark-lg");
-
   return (
-    <Box
+    <Flex
       minH="100vh"
+      align="center"
+      justify="center"
       bgGradient={useColorModeValue(
-        "linear(to-b, teal.50, green.50)",
-        "linear(to-b, gray.900, gray.800)"
+        "linear(to-r, teal.50, green.100)",
+        "linear(to-r, gray.900, gray.800)"
       )}
-      px={4}
+      px={6}
     >
-      <Center h="100vh">
-        <Box
-          bg={cardBg}
-          rounded="2xl"
-          shadow={cardShadow}
-          p={8}
-          maxW="sm"
-          textAlign="center"
+      <Stack spacing={6} align="center" textAlign="center" maxW="lg">
+        <Heading
+          as="h1"
+          size="2xl"
+          fontWeight="extrabold"
+          color={useColorModeValue("teal.600", "teal.300")}
+          lineHeight="shorter"
         >
-          <Heading size="lg" mb={2}>
-            Welcome
-          </Heading>
-          <Text fontSize="md" color="gray.500" mb={6}>
-            React + Flask Login & Register App
-          </Text>
-          <Stack spacing={4}>
-            <Link to="/login">
-              <Button
-                w="full"
-                colorScheme="teal"
-                size="md"
-                _hover={{ transform: "scale(1.02)" }}
-              >
-                Login
-              </Button>
-            </Link>
-            <Link to="/register">
-              <Button
-                w="full"
-                variant="outline"
-                colorScheme="teal"
-                size="md"
-                _hover={{ transform: "scale(1.02)" }}
-              >
-                Register
-              </Button>
-            </Link>
-          </Stack>
-        </Box>
-      </Center>
-    </Box>
+          Welcome to <Text as="span" color="green.500">Friends App</Text>
+        </Heading>
+        <Text fontSize="lg" color={useColorModeValue("gray.600", "gray.300")}>
+          Connect, share, and explore — your friends are just one click away.
+        </Text>
+        <Stack direction={{ base: "column", sm: "row" }} spacing={4}>
+          <Link to="/login">
+            <Button
+              colorScheme="teal"
+              size="lg"
+              px={8}
+              _hover={{ transform: "scale(1.05)" }}
+            >
+              Login
+            </Button>
+          </Link>
+          <Link to="/register">
+            <Button
+              variant="outline"
+              colorScheme="teal"
+              size="lg"
+              px={8}
+              _hover={{ transform: "scale(1.05)" }}
+            >
+              Register
+            </Button>
+          </Link>
+        </Stack>
+      </Stack>
+    </Flex>
   );
 }
