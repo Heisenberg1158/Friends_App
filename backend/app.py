@@ -8,6 +8,7 @@ from flask_cors import CORS
 import os
 from extensions import bcrypt
 
+prod_url = "https://your-production-url.com"
 # Paths
 frontend_folder = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "frontend"))
 build_folder = os.path.join(frontend_folder, "build")
@@ -19,7 +20,10 @@ app = Flask(
 )
 bcrypt.init_app(app)
 # Enable CORS
-CORS(app, supports_credentials=True, origins="*")
+if app.debug:
+    CORS(app, supports_credentials=True, origins=["http://localhost:3000"])
+else:
+    CORS(app, supports_credentials=True, origins=[prod_url, "http://localhost:3000"])
 
 # Configure database
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///friends.db"
