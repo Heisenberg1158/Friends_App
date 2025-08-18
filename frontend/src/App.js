@@ -1,9 +1,10 @@
 import { useState } from 'react';
-import {  Route, Routes, useLocation } from 'react-router-dom';
+import { Route, Routes, useLocation } from 'react-router-dom';
 import Homepage from './components/Homepage';
 import Landingpage from './components/Landingpage';
 import Loginpage from './components/Loginpage';
 import Registerpage from './components/Registerpage';
+import PrivateRoute from './components/PrivateRoute';
 
 
 export const BASE_URL = 'http://127.0.0.1:5000';
@@ -26,7 +27,11 @@ function App() {
 
       <Routes>
         <Route path="/" element={<Landingpage />} />
-        <Route path="/Homepage" element={<Homepage users={users} setUsers={setUsers} />} />
+        <Route path="/Homepage" element={
+          <PrivateRoute>
+            <Homepage users={users} setUsers={setUsers} />
+          </PrivateRoute>
+        } />
         <Route path="/login" element={<Loginpage />} />
         <Route path="/register" element={<Registerpage />} />
       </Routes>

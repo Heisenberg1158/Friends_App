@@ -82,8 +82,7 @@ def login():
         return jsonify({"error":"User not found"}),404
 
 @user_page.route('/logout/',methods = ['POST'])
-@token_required
-def logout(current_user):
+def logout():
     return jsonify({"message": "Logout successful."}), 200
 
 
